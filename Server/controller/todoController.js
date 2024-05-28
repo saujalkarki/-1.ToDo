@@ -63,7 +63,7 @@ exports.readSingleTodo = async (req, res) => {
   });
 };
 
-// update todo
+// updating todo
 exports.updateTodo = async (req, res) => {
   const id = req.params.id;
 
@@ -85,7 +85,7 @@ exports.updateTodo = async (req, res) => {
     });
   }
 
-  await todo.findByIdAndUpdate(id, {
+  await todoExist.updateOne({
     todoTitle,
     status,
   });
@@ -115,7 +115,7 @@ exports.deleteTodo = async (req, res) => {
     });
   }
 
-  await todo.findByIdAndDelete(id);
+  await todoExist.deleteOne();
 
   res.status(200).json({
     message: "Todo deleted successfully.",

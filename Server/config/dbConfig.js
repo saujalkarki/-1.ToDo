@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+// connecting to databse
 try {
   dbConfig = async (URI) => {
     await mongoose.connect(URI);
