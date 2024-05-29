@@ -2,6 +2,10 @@
 const express = require("express");
 const app = express();
 require("dotenv").config();
+const cors = require("cors");
+
+// allowing cross origin resource sharing
+app.use(cors({ origin: "http://localhost:5173" }));
 
 // env variables
 const port = process.env.PORT;

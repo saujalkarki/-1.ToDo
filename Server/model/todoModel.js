@@ -9,8 +9,8 @@ const todoModel = new Schema(
     },
     status: {
       type: String,
-      enum: ["not started", "In progress", "Completed"],
-      default: "not started",
+      enum: ["Not Started", "In Progress", "Completed"],
+      default: "Not Started",
     },
   },
   { timestamps: true }

@@ -6,16 +6,16 @@ export function NavBar() {
         <span className="  font-serif text-2xl font-bold">To..Do..</span>
       </a>
       <div className="flex gap-[6rem] text-lg font-bold ">
-        <a href="" className="  hover:text-[#0b0335]">
+        <a href="" className="  text-[#525551] hover:text-[#0b0335]">
           Home
         </a>
-        <a href="" className=" hover:text-[#0b0335]">
-          Add_Todo
+        <a href="" className=" text-[#525551] hover:text-[#0b0335]">
+          Todo
         </a>
-        <a href="" className=" hover:text-[#0b0335]">
+        <a href="" className=" text-[#525551] hover:text-[#0b0335]">
           About
         </a>
-        <a href="" className=" hover:text-[#0b0335]">
+        <a href="" className=" text-[#525551] hover:text-[#0b0335]">
           Contact
         </a>
       </div>
