@@ -1,14 +1,14 @@
-import { NavBar, Footer, FormNewTodo, TodoTable } from "./components";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Home } from "./pages/Home";
 
 function App() {
   return (
     <>
-      <NavBar />
-      <div className="flex  flex-col  items-center gap-5 my-6">
-        <FormNewTodo />
-        <TodoTable />
-      </div>
-      <Footer />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
