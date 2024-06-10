@@ -4,8 +4,12 @@ const app = express();
 require("dotenv").config();
 const cors = require("cors");
 
-// allowing cross origin resource sharing
-app.use(cors({ origin: "http://localhost:5173" }));
+// allowing cross origin resource sharing  CORS
+app.use(
+  cors({
+    origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+  })
+);
 
 // env variables
 const port = process.env.PORT;
@@ -19,7 +23,11 @@ app.use(express.urlencoded({ extended: true }));
 const dbConfig = require("./config/dbConfig");
 dbConfig(Mongo_URI);
 
-// setting up routes
+// setting up authRoutes
+const authRoute = require("./route/auth/authRoute");
+app.use("/user", authRoute);
+
+// setting up todoRoutes
 const todoRoute = require("./route/todoRoute");
 app.use("", todoRoute);
 
