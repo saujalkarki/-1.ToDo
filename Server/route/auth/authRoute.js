@@ -6,7 +6,7 @@ const {
   forgotPassword,
   verifyOtp,
   changePassword,
-} = require("../../controller/auth/registerUser");
+} = require("../../controller/auth/authController");
 
 // register new User
 router.route("/register").post(registerUser);

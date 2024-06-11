@@ -4,7 +4,7 @@ export function Home() {
   return (
     <>
       <NavBar />
-      <div className="flex  flex-col  items-center gap-5 my-6">
+      <div className="flex flex-col items-center justify-between my-[0.75rem]">
         <FormNewTodo />
         <TodoTable />
       </div>

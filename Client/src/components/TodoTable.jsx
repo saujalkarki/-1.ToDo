@@ -1,12 +1,32 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function TodoTable() {
+  const [notStarted, setNotStarted] = useState([]);
+  const [inProgress, setInProgress] = useState([]);
+  const [completed, setCompleted] = useState([]);
+
   // api call
   const fetchTodo = async () => {
     const fetchedTodo = await axios.get("http://localhost:3000/todo");
 
-    console.log(fetchedTodo);
+    const allTodo = fetchedTodo.data.allTodo;
+
+    const notStartedTodo = allTodo.filter((todo) => {
+      return todo.status === "Not Started";
+    });
+
+    const inProgressTodo = allTodo.filter((todo) => {
+      return todo.status === "In Progress";
+    });
+
+    const completedTodo = allTodo.filter((todo) => {
+      return todo.status === "Completed";
+    });
+
+    setNotStarted(notStartedTodo);
+    setInProgress(inProgressTodo);
+    setCompleted(completedTodo);
   };
 
   // triggering api call
@@ -31,19 +51,31 @@ export function TodoTable() {
       </thead>
       <tbody>
         <tr className=" text-center">
-          <td> </td>
-          <td> Tr1 Td2</td>
-          <td> </td>
+          {notStarted.map((todo) => {
+            return (
+              <>
+                <td>{todo.todoTitle}</td>
+              </>
+            );
+          })}
         </tr>
         <tr className=" text-center">
-          <td> Tr2 Td1</td>
-          <td> </td>
-          <td> </td>
+          {inProgress.map((todo) => {
+            return (
+              <>
+                <td>{todo.todoTitle}</td>
+              </>
+            );
+          })}
         </tr>
         <tr className=" text-center">
-          <td> Tr3 Td1</td>
-          <td> Tr3 Td2</td>
-          <td> Tr3 Td3</td>
+          {completed.map((todo) => {
+            return (
+              <>
+                <td>{todo.todoTitle}</td>
+              </>
+            );
+          })}
         </tr>
       </tbody>
     </table>

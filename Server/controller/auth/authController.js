@@ -11,8 +11,8 @@ const User = require("../../model/userModel");
 exports.registerUser = async (req, res) => {
   const { registerUserName, registerEmail, registerPassword } = req.body;
 
-  if (!userName || !userEmail || !userPassword) {
-    return res.status(200).json({
+  if (!registerUserName || !registerEmail || !registerPassword) {
+    return res.status(400).json({
       message: "Please enter all the data.",
     });
   }
@@ -40,7 +40,7 @@ exports.registerUser = async (req, res) => {
 exports.userLogin = async (req, res) => {
   const { loginEmail, loginPassword } = req.body;
 
-  if (!userEmail || !userPassword) {
+  if (!loginEmail || !loginPassword) {
     return res.status(400).json({
       message: "Please enter all the data",
     });
@@ -82,7 +82,7 @@ exports.userLogin = async (req, res) => {
 };
 
 // forgot password -- sending OTP
-exports.forgotPassword = async () => {
+exports.forgotPassword = async (req, res) => {
   const { forgotEmail } = req.body;
 
   if (!forgotEmail) {
@@ -106,7 +106,7 @@ exports.forgotPassword = async () => {
   });
 
   sendEmail({
-    emial: forgotEmail,
+    email: forgotEmail,
     subject: "OTP Todo_MERN_Project",
     message: `Please don't share this with anyone.
     OTP: ${OTP}
@@ -161,7 +161,7 @@ exports.verifyOtp = async (req, res) => {
 exports.changePassword = async (req, res) => {
   const { forgotEmail, newPassword, confirmNewPassword } = req.body;
 
-  if (!userEmail || !newPassword || !confirmNewPassword) {
+  if (!forgotEmail || !newPassword || !confirmNewPassword) {
     return res.status(400).json({
       message: "Please enter all the data.",
     });
@@ -188,12 +188,9 @@ exports.changePassword = async (req, res) => {
   }
 
   if (bcrypt.compareSync(confirmNewPassword, userExist[0].userPassword)) {
-    return (
-      res.staus(400),
-      json({
-        message: "Please enter a unique password.",
-      })
-    );
+    return res.status(400).json({
+      message: "Please enter a unique password.",
+    });
   }
 
   userExist[0].userPassword = bcrypt.hashSync(confirmNewPassword, 10);
