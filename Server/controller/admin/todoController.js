@@ -3,6 +3,8 @@ const todo = require("../../model/todoModel");
 
 // creating todo
 exports.createTodo = async (req, res) => {
+  console.log(req.user);
+  reutrn;
   const { todoTitle, status } = req.body;
 
   if (!todoTitle) {
