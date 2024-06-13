@@ -32,10 +32,10 @@ export function FormNewTodo() {
     <>
       <form
         onSubmit={createTodo}
-        className=" flex flex-col justify-evenly bg-slate-600 p-[0.75rem] gap-2"
+        className=" flex flex-col justify-evenly bg-slate-600 gap-3 px-6 py-4 min-w-[70vw]"
       >
-        <div className="flex items-center gap-2">
-          <label htmlFor="todoTitle" className=" text-md font-medium">
+        <div className="flex items-center gap-3">
+          <label htmlFor="todoTitle" className=" text-lg font-medium">
             Todo:
           </label>
           <input
@@ -43,25 +43,31 @@ export function FormNewTodo() {
             id="todoTitle"
             name="todoTitle"
             onChange={handleChange}
-            className="p-[0.25rem] text-md rounded-sm"
+            className="p-[0.25rem] text-lg rounded-sm w-[80%]"
           />
         </div>
-        <div className="flex items-center gap-2">
-          <label htmlFor="status" className=" text-md font-medium ">
+        <div className="flex items-center gap-3">
+          <label htmlFor="status" className=" text-lg font-medium ">
             Status:
           </label>
           <select
             name="status"
             id="status"
             onChange={handleChange}
-            className="p-[0.25rem] text-sm rounded-lg"
+            className="p-[0.25rem] text-md rounded-lg w-[60%]"
           >
-            <option value="Not Started">Not Started</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Completed">Completed</option>
+            <option value="Not Started" className="text-xs">
+              Not Started
+            </option>
+            <option value="In Progress" className="text-xs">
+              In Progress
+            </option>
+            <option value="Completed" className="text-xs">
+              Completed
+            </option>
           </select>
         </div>
-        <button className=" text-md font-medium rounded-lg bg-green-300 text-[#000000]">
+        <button className=" min-w-[100%] text-lg font-medium rounded-lg bg-green-300 text-[#000000]">
           Add
         </button>
       </form>

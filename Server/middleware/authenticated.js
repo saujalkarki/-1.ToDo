@@ -10,34 +10,46 @@ const isAuthenticated = async (req, res, next) => {
     });
   }
 
-  jwt.verify(token, process.env.PRIVATE_KEY, async (err, sucss) => {
-    if (err) {
-      res.status(400).json({
-        message: "Login Failed",
+  // jwt.verify(token, process.env.PRIVATE_KEY, async (err, sucss) => {
+  //   if (err) {
+  //     res.status(400).json({
+  //       message: "Login Failed",
+  //     });
+  //   } else {
+  //     res.status(200).json({
+  //       message: "Logged in successfully.",
+  //     });
+  //     console.log(sucss);
+  //     const userExist = await User.findById(sucss.id);
+  //     console.log(userExist);
+  //     req.user = userExist;
+  //   }
+  // });
+
+  try {
+    const result = await promisify(jwt.verify)(token, process.env.PRIVATE_KEY);
+
+    if (!result) {
+      return res.status(400).json({
+        message: "Something went wrong.",
       });
-    } else {
-      res.status(200).json({
-        message: "Logged in successfully.",
-      });
-      console.log(sucss);
-      const userExist = await User.findById(sucss.id);
-      console.log(userExist);
-      req.user = userExist;
     }
-  });
 
-  // const result = await promisify(jwt.verify)(token, process.env.PRIVATE_KEY);
-  // console.log(result);
-  // if (!result) {
-  //   res.status(400).json({
-  //     message: "Something went wrong.",
-  //   });
-  // }
+    const userExist = await User.findById(result.id);
+    if (!userExist) {
+      return res.status(404).message({
+        message: "User with this id Doesn't exist.",
+      });
+    }
 
-  // const userExist = await User.findById(result.id);
-  // console.log(userExist);
+    req.user = userExist;
 
-  //   next();
+    next();
+  } catch (err) {
+    return res.status(400).json({
+      message: ` There is some error called : ${err}.`,
+    });
+  }
 };
 
 module.exports = isAuthenticated;

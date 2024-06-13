@@ -35,16 +35,16 @@ export function TodoTable() {
   }, []);
 
   return (
-    <table className=" w-[70vw] border-2 border-slate-950  bg-gray-200">
+    <table className="min-w-[95vw] border-2 border-slate-950  bg-gray-200">
       <thead className="border-b-2 border-slate-950">
         <tr>
-          <th className=" py-4 border-r-2 border-slate-950 text-lg font-bold text-gray-600">
+          <th className=" py-3 px-2 border-r-2 border-slate-950 text-sm font-semibold text-gray-600">
             NOT STARTED
           </th>
-          <th className=" py-4 border-r-2 border-slate-950 text-lg font-bold text-indigo-600">
+          <th className=" py-3 px-2 border-r-2 border-slate-950 text-sm font-semibold text-indigo-600">
             IN PROGRESS
           </th>
-          <th className=" py-4 border-slate-950 text-lg font-bold text-lime-600">
+          <th className=" py-3 px-2 border-slate-950 text-sm font-semibold text-lime-600">
             COMPLETED
           </th>
         </tr>

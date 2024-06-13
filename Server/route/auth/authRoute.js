@@ -8,15 +8,17 @@ const {
   changePassword,
 } = require("../../controller/auth/authController");
 
+const { catchAsync } = require("../../services/catchAsync");
+
 // register new User
-router.route("/register").post(registerUser);
+router.route("/register").post(catchAsync(registerUser));
 // login as User
-router.route("/login").post(userLogin);
+router.route("/login").post(catchAsync(userLogin));
 // forgot password
-router.route("/forgotpassword").post(forgotPassword);
+router.route("/forgotpassword").post(catchAsync(forgotPassword));
 // verify OTP
-router.route("/verifyotp").post(verifyOtp);
+router.route("/verifyotp").post(catchAsync(verifyOtp));
 // change password
-router.route("/changepassword").post(changePassword);
+router.route("/changepassword").post(catchAsync(changePassword));
 
 module.exports = router;
