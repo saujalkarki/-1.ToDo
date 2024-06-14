@@ -31,6 +31,10 @@ app.use("/user", authRoute);
 const todoRoute = require("./route/todoRoute");
 app.use("", todoRoute);
 
+// setting up deletingUserRoutes
+const userRoute = require("./route/userRoute");
+app.use("", userRoute);
+
 // listening to server
 app.listen(port, () => {
   console.log(`Server has started at port ${port}.`);

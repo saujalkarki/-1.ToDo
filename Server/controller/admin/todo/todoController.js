@@ -1,9 +1,8 @@
 const mongoose = require("mongoose");
-const todo = require("../../model/todoModel");
+const todo = require("../../../model/todoModel");
 
 // creating todo
 exports.createTodo = async (req, res) => {
-  // return;
   const { todoTitle, status } = req.body;
 
   if (!todoTitle) {
