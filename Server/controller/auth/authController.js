@@ -46,7 +46,9 @@ exports.userLogin = async (req, res) => {
     });
   }
 
-  const userExist = await User.find({ userEmail: loginEmail });
+  const userExist = await User.find({ userEmail: loginEmail }).select(
+    "+userPassword"
+  );
 
   if (userExist.length === 0) {
     return res.status(400).json({

@@ -35,7 +35,7 @@ const isAuthenticated = async (req, res, next) => {
       });
     }
 
-    const userExist = await User.findById(result.id);
+    const userExist = await User.findById(result.id).select("+role");
     if (!userExist) {
       return res.status(404).message({
         message: "User with this id Doesn't exist.",

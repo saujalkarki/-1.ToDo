@@ -3,9 +3,11 @@ const User = require("../../../model/userModel");
 
 // getting all users
 exports.getUser = async (req, res) => {
-  const users = await User.find();
-
-  console.log(users);
+  const users = (
+    await User.find().select(["-__v", "+role", "-userPassword"])
+  ).filter((user) => {
+    return user.role !== "Admin";
+  });
 
   if (users.length === 0) {
     return res.status(400).json({
@@ -49,12 +51,6 @@ exports.getSingleUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   const { userName, userEmail } = req.body;
   const id = req.params.id;
-
-  // if (!userName || !userEmail) {
-  //   return res.status(400).json({
-  //     message: "Please provide the data to be upated",
-  //   });
-  // }
 
   const validId = mongoose.Types.ObjectId.isValid(id);
 

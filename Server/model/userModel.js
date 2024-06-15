@@ -15,17 +15,21 @@ const userModel = new Schema(
     userPassword: {
       type: String,
       required: true,
+      select: false,
     },
     role: {
       type: String,
       enum: ["User", "Admin"],
       default: "User",
+      select: false,
     },
     otp: {
       type: Number,
+      select: false,
     },
     isOtpVerified: {
       type: Boolean,
+      select: false,
     },
   },
   {
