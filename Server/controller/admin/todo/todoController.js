@@ -1,8 +1,10 @@
 const mongoose = require("mongoose");
 const todo = require("../../../model/todoModel");
+const User = require("../../../model/userModel");
 
 // creating todo
 exports.createTodo = async (req, res) => {
+  const todoUser = req.params.id;
   const { todoTitle, status } = req.body;
 
   if (!todoTitle) {
@@ -12,6 +14,7 @@ exports.createTodo = async (req, res) => {
   }
 
   await todo.create({
+    todoUser,
     todoTitle,
     status,
   });
@@ -23,7 +26,7 @@ exports.createTodo = async (req, res) => {
 
 // reading All the todo
 exports.readAllTodo = async (req, res) => {
-  const allTodo = await todo.find();
+  const allTodo = await todo.find().populate("todoUser");
 
   if (allTodo.length === 0) {
     return res.status(400).json({
@@ -49,7 +52,7 @@ exports.readSingleTodo = async (req, res) => {
     });
   }
 
-  const singleTodo = await todo.findById(id);
+  const singleTodo = await todo.findById(id).populate("todoUser");
 
   if (!singleTodo) {
     return res.status(400).json({
@@ -60,6 +63,44 @@ exports.readSingleTodo = async (req, res) => {
   res.status(200).json({
     message: "todo fetched successfully.",
     singleTodo,
+  });
+};
+
+// reading userTodo
+exports.readUserTodo = async (req, res) => {
+  const userId = req.params.id;
+
+  const validId = mongoose.Types.ObjectId.isValid(userId);
+
+  if (!validId) {
+    res.status(400).json({
+      message: "Invalid User Id.",
+    });
+  }
+
+  const userExist = await User.findById(userId);
+
+  if (!userExist) {
+    res.status(400).json({
+      message: "User with this id didn't exist.",
+    });
+  }
+
+  const todos = await todo.find().populate("todoUser");
+
+  const filteredTodo = todos.filter((todo) => {
+    return todo.todoUser._id.equals(userExist._id);
+  });
+
+  if (filteredTodo.length === 0) {
+    return res.status(400).json({
+      message: "no todo created by this user yet.",
+    });
+  }
+
+  res.status(200).json({
+    message: "Todo fetched Successfully.",
+    todos: filteredTodo,
   });
 };
 
