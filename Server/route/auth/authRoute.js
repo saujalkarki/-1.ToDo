@@ -8,10 +8,15 @@ const {
   changePassword,
 } = require("../../controller/auth/authController");
 
+const validateMiddleware = require("../../middleware/validateMiddleware");
+const authRegisterSchema = require("../../validators/authRegisterSchema");
+
 const { catchAsync } = require("../../services/catchAsync");
 
 // register new User
-router.route("/register").post(catchAsync(registerUser));
+router
+  .route("/register")
+  .post(validateMiddleware(authRegisterSchema), catchAsync(registerUser));
 // login as User
 router.route("/login").post(catchAsync(userLogin));
 // forgot password
