@@ -17,9 +17,7 @@ const allowedTo = require("../middleware/allowedTo");
 const { catchAsync } = require("../services/catchAsync");
 
 // creating a new todo and reading all todo
-router
-  .route("/todo")
-  .get(isAuthenticated, allowedTo("Admin"), catchAsync(readAllTodo));
+router.route("/todo").get(catchAsync(readAllTodo));
 
 // reading, updating and deleting single todo
 router
