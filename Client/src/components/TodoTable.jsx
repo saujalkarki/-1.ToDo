@@ -16,11 +16,11 @@ export function TodoTable({ status, color }) {
   }, []);
 
   return (
-    <table className="min-w-[95vw] border-2 border-slate-950  bg-gray-200">
+    <table className=" border-2 border-slate-950  bg-gray-200">
       <thead className="border-b-2 border-slate-950">
         <tr>
           <th
-            className={`py-3 px-2 border-r-2 border-slate-950 text-sm font-semibold ${color}`}
+            className={`py-2 border-r-2 border-slate-950 text-sm font-semibold ${color}`}
           >
             {status}
           </th>
@@ -32,7 +32,9 @@ export function TodoTable({ status, color }) {
         }).map((todo) => {
           return (
             <tr key={todo._id}>
-              <td>{todo.todoTitle}</td>
+              <td className=" border-b-2 border-gray-950 text-sm">
+                {todo.todoTitle}
+              </td>
             </tr>
           );
         })}
